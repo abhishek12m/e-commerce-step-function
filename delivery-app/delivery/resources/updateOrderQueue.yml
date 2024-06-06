@@ -1,0 +1,9 @@
+Type: AWS::SQS::Queue
+Properties:
+  QueueName: updateOrderQueue_${self:provider.stage}
+  RedrivePolicy:
+    deadLetterTargetArn:
+      Fn::GetAtt:
+        - UpdateOrderDLQ
+        - Arn
+    maxReceiveCount: 2

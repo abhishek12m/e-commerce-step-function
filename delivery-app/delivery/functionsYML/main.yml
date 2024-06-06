@@ -1,0 +1,4 @@
+functions:
+  triggerStepFunction: ${file(./delivery/functionsYML/triggerStepFunction.yml)}
+  updateOrderStatusLambda: ${file(./delivery/functionsYML/updateOrderStatusLambda.yml)}
+  notifyEcommerceApp: ${file(./delivery/functionsYML/notifyEcommerceApp.yml)}

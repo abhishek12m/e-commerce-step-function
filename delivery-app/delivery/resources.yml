@@ -1,0 +1,8 @@
+Resources:
+  UpdateOrderQueue: ${file(./delivery/resources/updateOrderQueue.yml)}
+
+  UpdateOrderDLQ: ${file(./delivery/resources/UpdateOrderDLQ.yml)}
+
+  UpdateOrderStatusStepFunction: ${file(./delivery/resources/UpdateOrderStatusStepFunction.yml)}
+
+  UpdateOrderStatusStepFunctionRole: ${file(./delivery/resources/UpdateOrderStatusStepFunctionRole.yml)}

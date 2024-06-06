@@ -1,0 +1,3 @@
+handler: products/updateOrderStatusLambda.updateOrderStatus
+environment:
+  ORDERS_STATUS_TABLE: ${file(./serverless/env.yml):environments.ORDERS_STATUS_TABLE}

@@ -1,0 +1,6 @@
+Resources:
+  UsersTable: ${file(./serverless/userTable.yml)}
+  ProductsTable: ${file(./serverless/productsTable.yml)}
+  OrdersTable: ${file(./serverless/ordersTable.yml)}
+  OrdersStatusTable: ${file(./serverless/ordersStatusTable.yml)}
+  DLQTable: ${file(./serverless/dlqTable.yml)}

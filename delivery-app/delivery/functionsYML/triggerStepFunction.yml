@@ -1,0 +1,9 @@
+handler: products/triggerStepFunction.triggerStepFunction
+environment:
+  STEP_FUNCTION_ARN: ${file(./serverless/env.yml):environments.STEP_FUNCTION_ARN}
+events:
+  - sqs:
+      arn:
+        Fn::GetAtt:
+          - UpdateOrderQueue
+          - Arn

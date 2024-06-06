@@ -1,0 +1,44 @@
+Type: AWS::StepFunctions::StateMachine
+Properties:
+  DefinitionString: !Sub |
+    {
+      "Comment": "Update Order Status and Notify E-commerce App",
+      "StartAt": "WaitBeforeUpdate",
+      "States": {
+        "WaitBeforeUpdate": {
+          "Type": "Wait",
+          "Seconds": 60,
+          "Next": "UpdateOrderStatus"
+        },
+        "UpdateOrderStatus": {
+          "Type": "Task",
+          "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-${self:provider.stage}-updateOrderStatusLambda",
+          "Retry": [
+            {
+              "ErrorEquals": ["States.ALL"],
+              "IntervalSeconds": 2,
+              "MaxAttempts": 3,
+              "BackoffRate": 2.0
+            }
+          ],
+          "Catch": [
+            {
+              "ErrorEquals": ["States.ALL"],
+              "Next": "HandleError"
+            }
+          ],
+          "Next": "NotifyEcommerceApp"
+        },
+        "NotifyEcommerceApp": {
+          "Type": "Task",
+          "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${self:service}-${self:provider.stage}-notifyEcommerceApp",
+          "End": true
+        },
+        "HandleError": {
+          "Type": "Fail",
+          "Cause": "An error occurred during order status update",
+          "Error": "ErrorUpdatingOrderStatus"
+        }
+      }
+    }
+  RoleArn: !GetAtt UpdateOrderStatusStepFunctionRole.Arn
